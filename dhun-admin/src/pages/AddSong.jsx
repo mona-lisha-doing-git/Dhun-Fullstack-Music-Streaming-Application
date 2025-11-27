@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import react, { useState } from 'react'
 import { assets } from '../assets/assets'
 import axios from 'axios'
 import { url } from '../App'
 import { toast } from 'react-toastify'
+import { useEffect } from 'react'
 
 const AddSong = () => {
 
@@ -48,6 +49,23 @@ const AddSong = () => {
         setLoading(false);
     }
 
+    const loadAlbumData = async ()=>{
+        try{
+            const response = await axios.get(`${url}/api/album/list`);
+            if(response.data.success){
+                setAlbumData(response.data.albums);
+            }else{
+                toast.error("Unable to load albums data");
+            }
+        }catch(error){
+            toast.error("Error Occured");
+        }
+    }
+
+    useEffect(()=>{
+        loadAlbumData();
+    }, [])
+
     return loading? (
         <div className='grid place-items-center min-h-[80vh]'>
             <div className='w-16 h-16 place-self-center border-4 border-gray-400 border-t-sky-800 rounded-full animate-spin'>
@@ -87,8 +105,9 @@ const AddSong = () => {
 
         <div className='flex flex-col gap-2.5'>
             <p>Album</p>
-            <select onChange={(e)=>setAlbum(e.target.value)} defaultValue={album} className='bg-transparent outline-sky-600 border-2 border-gray-400 p-2.5 w-[150px]'>
+            <select onChange={(e)=>setAlbum(e.target.value)} value={album} className='bg-transparent outline-sky-600 border-2 border-gray-400 p-2.5 w-[150px]'>
                 <option value="none">None</option>
+                {albumData.map((item, index)=>(<option key={index} value={item.name}>{item.name}</option>))}
 
             </select>
 
