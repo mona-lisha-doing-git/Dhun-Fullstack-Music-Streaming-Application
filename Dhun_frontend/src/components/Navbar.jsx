@@ -9,22 +9,22 @@ const Navbar = () => {
     <>
     <div className='w-full flex justify-between items-center font-semibold'>
         <div className='flex items-center gap-2'>
-            <img onClick={()=>navigate(-1)} className='w-8 bg-black rounded-2xl p-2 cursor-pointer' src={assets.arrow_left} alt="" />
-            <img onClick={()=>navigate(1)} className='w-8 bg-black rounded-2xl p-2 cursor-pointer' src={assets.arrow_right} alt="" />
+            <img onClick={()=>navigate(-1)} className='w-8 bg-black rounded-2xl p-2 cursor-pointer hover:bg-[#ffffff10]' src={assets.arrow_left} alt="" />
+            <img onClick={()=>navigate(1)} className='w-8 bg-black rounded-2xl p-2 cursor-pointer hover:bg-[#ffffff10]' src={assets.arrow_right} alt="" />
 
         </div>
         <div className='flex items-center gap-4'>
-            <p className='bg-sky-400 text-sky-950 text-[15px] px-4 py-1 rounded-2xl hidden md:block cursor-pointer'>Explore Sleep Help Music</p>
-            <p className='bg-sky-800 py-1 px-3 rounded-2xl text-[15px] cursor-pointer text-sky-100'>Install App</p>
+            <p className='bg-sky-400 text-sky-950 text-[15px] px-4 py-1 rounded-2xl hidden md:block cursor-pointer hover:bg-sky-600'>Explore Sleep Help Music</p>
+            <p className='bg-sky-600 py-1 px-3 rounded-2xl text-[15px] cursor-pointer text-sky-100 hover:bg-sky-800'>Sign in</p>
             <p className='bg-purple-400 text-black w-7 h-7 rounded-full flex items-center justify-center'>MK</p>
 
         </div>
 
     </div>
     <div className='flex items-center gap-2 mt-4'>
-        <p className='bg-sky-400 text-sky-950 px-4 py-1 rounded-2xl cursor-pointer'>All</p>
-        <p className='bg-sky-800 px-4 py-1 rounded-2xl cursor-pointer text-sky-100'>Music</p>
-        <p className='bg-sky-800 px-4 py-1 rounded-2xl cursor-pointer text-sky-100'>Podcasts</p>
+        <p className='bg-sky-400 text-sky-950 px-4 py-1 rounded-2xl cursor-pointer hover:bg-sky-600'>All</p>
+        <p className='bg-sky-600 px-4 py-1 rounded-2xl cursor-pointer text-sky-100 hover:bg-sky-800'>Music</p>
+        <p className='bg-sky-600 px-4 py-1 rounded-2xl cursor-pointer text-sky-100 hover:bg-sky-800'>Podcasts</p>
 
     </div>
     

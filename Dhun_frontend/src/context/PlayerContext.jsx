@@ -8,9 +8,11 @@ const PlayerContextProvider = (props)=>{
     const audioRef = useRef();
     const seekBg = useRef();
     const seekBar = useRef();
-
+    const sleepIntervalRef = useRef(null);
+    const sleepTimerRef = useRef(null);
+    
     const url = 'http://localhost:4000';
-
+    
     const [songsData, setSongsData] = useState([]);
     const [albumsData, setAlbumsData] = useState([]);
     const [track, setTrack] = useState(songsData[0]);
@@ -25,6 +27,16 @@ const PlayerContextProvider = (props)=>{
             minute: 0
         }
     })
+
+    const [sleepTimerId, setSleepTimerId] = useState(null);
+    const [sleepTimerMode, setSleepTimerMode] = useState(null); // "minutes" | "time"
+    const [sleepRemaining, setSleepRemaining] = useState(null); // seconds
+
+
+    
+    const [volume, setVolume] = useState(1);
+    const [showLyrics, setShowLyrics] = useState(false);
+    const [showQueue, setShowQueue] = useState(false);
 
     const play = ()=>{
         audioRef.current.play();
@@ -57,7 +69,7 @@ const PlayerContextProvider = (props)=>{
     }
     const next = async ()=>{
         songsData.map(async (item, index)=>{
-            if(track._id === item._id && index < songsData.length){
+            if(track._id === item._id && index < songsData.length-1){
                 await setTrack(songsData[index+1]);
                 await audioRef.current.play();
                 setPlayStatus(true);
@@ -90,6 +102,111 @@ const PlayerContextProvider = (props)=>{
 
         }
     }
+
+    const toggleLyrics = () => {
+    setShowLyrics(prev => !prev);
+    };
+
+    const toggleQueue = () => {
+        setShowQueue(prev => !prev);
+    };
+
+    const changeVolume = (e) => {
+        const value = e.target.value;
+        audioRef.current.volume = value;
+        setVolume(value);
+    };
+
+    const clearSleepTimer = () => {
+  if (sleepTimerId) {
+    clearTimeout(sleepTimerId);
+  }
+
+  if (sleepIntervalRef.current) {
+    clearInterval(sleepIntervalRef.current);
+    sleepIntervalRef.current = null;
+  }
+
+  setSleepTimerId(null);
+  setSleepRemaining(null);
+};
+
+    const stopPlayback = () => {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      setPlayStatus(false);
+    };
+
+    const setSleepTimerMinutes = (minutes) => {
+      clearSleepTimer();
+
+      const endTime = Date.now() + minutes * 60 * 1000;
+
+      const timer = setTimeout(() => {
+        stopPlayback();
+        setSleepRemaining(null);
+      }, minutes * 60 * 1000);
+
+      setSleepTimerId(timer);
+      setSleepTimerMode("minutes");
+      startSleepCountdown(endTime);
+    };
+
+
+        const setSleepTimerAtTime = (timeString) => {
+  if (!timeString || !timeString.includes(":")) return;
+
+  clearSleepTimer();
+
+  const now = new Date();
+
+  const [hStr, mStr] = timeString.split(":");
+  const hours = Number(hStr);
+  const minutes = Number(mStr);
+
+  if (Number.isNaN(hours) || Number.isNaN(minutes)) return;
+
+  const target = new Date();
+  target.setHours(hours, minutes, 0, 0);
+
+  if (target.getTime() <= now.getTime()) {
+    target.setDate(target.getDate() + 1);
+  }
+
+  const delay = target.getTime() - now.getTime();
+
+  if (delay <= 0) return;
+
+  sleepTimerRef.current = setTimeout(() => {
+    stopPlayback();
+    clearSleepTimer();
+  }, delay);
+
+  startSleepCountdown(target.getTime());
+};
+
+
+
+const startSleepCountdown = (endTime) => {
+  if (sleepIntervalRef.current) {
+    clearInterval(sleepIntervalRef.current);
+  }
+
+  sleepIntervalRef.current = setInterval(() => {
+    const diff = Math.max(
+      Math.floor((endTime - Date.now()) / 1000),
+      0
+    );
+
+    setSleepRemaining(diff);
+
+    if (diff === 0) {
+      clearInterval(sleepIntervalRef.current);
+      sleepIntervalRef.current = null;
+      setSleepRemaining(null);
+    }
+  }, 1000);
+};
 
     useEffect(()=>{
         setTimeout(()=>{
@@ -125,7 +242,18 @@ const PlayerContextProvider = (props)=>{
         playWithId,
         previous, next,
         seekSong,
-        songsData, albumsData
+        songsData, albumsData,
+        volume,
+        changeVolume,
+        showLyrics,
+        toggleLyrics,
+        showQueue,
+        toggleQueue,
+        setSleepTimerMinutes,
+        setSleepTimerAtTime,
+        clearSleepTimer,
+        sleepTimerMode,
+        sleepRemaining,
     }
     return (
         <PlayerContext.Provider value={contextValue}>

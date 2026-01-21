@@ -6,6 +6,22 @@ const storage = multer.diskStorage({
     }
 })
 
-const upload = multer({storage});
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "audio/mpeg" ||
+    file.mimetype === "audio/mp3" ||
+    file.mimetype.startsWith("image/")
+  ) {
+    cb(null, true);
+  } else {
+    cb(new Error("Unsupported file type"), false);
+  }
+};
+
+
+const upload = multer({
+    storage,
+    fileFilter,
+});
 
 export default upload;
