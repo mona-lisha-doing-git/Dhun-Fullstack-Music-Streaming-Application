@@ -16,15 +16,33 @@ const Navbar = () => {
         <div className='flex items-center gap-4'>
             <p className='bg-sky-400 text-sky-950 text-[15px] px-4 py-1 rounded-2xl hidden md:block cursor-pointer hover:bg-sky-600'>Explore Sleep Help Music</p>
             <p className='bg-sky-600 py-1 px-3 rounded-2xl text-[15px] cursor-pointer text-sky-100 hover:bg-sky-800'>Sign in</p>
-            <p className='bg-purple-400 text-black w-7 h-7 rounded-full flex items-center justify-center'>MK</p>
+            <p className='bg-purple-400 text-black w-7 h-7 rounded-full flex items-center justify-center cursor-pointer hover:bg-purple-300'>MK</p>
 
         </div>
 
     </div>
     <div className='flex items-center gap-2 mt-4'>
-        <p className='bg-sky-400 text-sky-950 px-4 py-1 rounded-2xl cursor-pointer hover:bg-sky-600'>All</p>
-        <p className='bg-sky-600 px-4 py-1 rounded-2xl cursor-pointer text-sky-100 hover:bg-sky-800'>Songs</p>
-        <p className='bg-sky-600 px-4 py-1 rounded-2xl cursor-pointer text-sky-100 hover:bg-sky-800'>Albums</p>
+        <p
+  onClick={() => navigate("/")}
+  className='bg-sky-400 text-sky-950 px-4 py-1 rounded-2xl cursor-pointer hover:bg-sky-600'
+>
+  All
+</p>
+
+<p
+  onClick={() => navigate("/songs")}
+  className='bg-sky-600 px-4 py-1 rounded-2xl cursor-pointer text-sky-100 hover:bg-sky-800'
+>
+  Songs
+</p>
+
+<p
+  onClick={() => navigate("/albums")}
+  className='bg-sky-600 px-4 py-1 rounded-2xl cursor-pointer text-sky-100 hover:bg-sky-800'
+>
+  Albums
+</p>
+
 
     </div>
     
