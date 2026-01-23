@@ -12,6 +12,8 @@ const PlayerContextProvider = (props)=>{
     const sleepTimerRef = useRef(null);
     
     const url = 'http://localhost:4000';
+
+    const [searchQuery, setSearchQuery] = useState("");
     
     const [songsData, setSongsData] = useState([]);
     const [albumsData, setAlbumsData] = useState([]);
@@ -254,6 +256,9 @@ const startSleepCountdown = (endTime) => {
         clearSleepTimer,
         sleepTimerMode,
         sleepRemaining,
+        searchQuery,
+        setSearchQuery,
+
     }
     return (
         <PlayerContext.Provider value={contextValue}>

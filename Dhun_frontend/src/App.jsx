@@ -9,7 +9,7 @@ const App = () => {
   const {audioRef, track, songsData} = useContext(PlayerContext);
 
   return(
-  <div className='h-screen bg-black'>
+  <div className='h-screen bg-gradient-to-r from-fuchsia-950 to-black'>
     {
       songsData.length !== 0
       ?

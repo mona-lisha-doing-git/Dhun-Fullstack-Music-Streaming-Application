@@ -123,11 +123,14 @@ const Player = () => {
         <div className="hidden lg:flex items-center gap-4">
   {/* Image + timer column */}
   <div className="flex flex-col items-center">
-    <img
-      className="w-12"
-      src={track.image ? track.image : null}
-      alt=""
-    />
+    <div className="w-12 h-12 overflow-hidden rounded">
+  <img
+    src={track.image ? track.image : null}
+    alt=""
+    className="w-full h-full object-cover"
+  />
+</div>
+
 
     {sleepRemaining !== null && (
       <p className="text-[11px] text-gray-400 mt-1">
