@@ -75,6 +75,16 @@ const SignUp = () => {
         <button className="w-full bg-sky-400 text-sky-950 py-2 rounded font-semibold hover:bg-sky-600">
           Create Account
         </button>
+        <p className="text-sm mt-3 text-center">
+  Already have an account?{" "}
+  <span
+    onClick={() => navigate("/signin")}
+    className="text-sky-400 cursor-pointer hover:underline"
+  >
+    Sign in
+  </span>
+</p>
+
       </form>
     </div>
   );
