@@ -5,6 +5,8 @@ import songRouter from './src/routes/songRoute.js';
 import connectDB from './src/config/mongodb.js';
 import connectCloudinary from './src/config/cloudinary.js';
 import albumRouter from './src/routes/albumRoute.js';
+import authRoute from "./src/routes/authRoute.js";
+
 
 //app config
 const app = express()
@@ -13,12 +15,14 @@ connectDB();
 connectCloudinary();
 
 //middlewares
-app.use(express.json()); //whenever we will get any request, it will pass through this json method
 app.use(cors());
+app.use(express.json()); //whenever we will get any request, it will pass through this json method
 
 //initializing routes
+
 app.use("/api/song", songRouter);
 app.use("/api/album", albumRouter);
+app.use("/api/auth", authRoute);
 
 
 app.get('/',(req, res)=> res.send("API is working"));

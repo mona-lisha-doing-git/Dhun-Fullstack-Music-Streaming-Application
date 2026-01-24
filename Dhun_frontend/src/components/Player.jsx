@@ -7,6 +7,8 @@ const Player = () => {
     const [showSleepMenu, setShowSleepMenu] = useState(false);
     const [targetTime, setTargetTime] = useState("");
 
+    const { user } = useContext(PlayerContext);
+
     const {
         track,
         seekBar,
@@ -30,7 +32,10 @@ const Player = () => {
 
 
     return track? (
-    <div className='h-[10%] bg-black flex justify-between items-center text-white px-4'>
+        <div className={`${!user ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`}>
+
+    <div className="fixed bottom-0 left-0 right-0 bg-black h-[90px] flex justify-between items-center text-white px-4 z-50">
+
 {showSleepMenu && (
   <div className="absolute bottom-20 right-6 bg-[#121212] text-white p-4 rounded-lg shadow-lg w-56 z-50">
     <p className="text-sm mb-2 font-semibold">Sleep Timer</p>
@@ -187,19 +192,19 @@ const Player = () => {
             />
 
 
-            <img
+            {/* <img
                 onClick={toggleLyrics}
                 className='w-4 cursor-pointer'
                 src={assets.mic_icon}
                 alt="Lyrics"
-            />
+            /> */}
 
-            <img
+            {/* <img
                 onClick={toggleQueue}
                 className='w-4 cursor-pointer'
                 src={assets.queue_icon}
                 alt="Queue"
-            />
+            /> */}
 
                 {/* Currently not working behavior */}
             <img
@@ -224,6 +229,7 @@ const Player = () => {
 
         </div>
     
+    </div>
     </div>
   )
   : null

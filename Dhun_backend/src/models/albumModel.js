@@ -5,6 +5,11 @@ const albumSchema = new mongoose.Schema({
     desc: { type: String, required: true},
     bgColour: { type: String, required: true},
     image: { type: String, required: true},
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    }
+
 })
 
 const albumModel = mongoose.models.album || mongoose.model("album", albumSchema);

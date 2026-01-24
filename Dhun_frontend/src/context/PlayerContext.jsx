@@ -40,6 +40,17 @@ const PlayerContextProvider = (props)=>{
     const [showLyrics, setShowLyrics] = useState(false);
     const [showQueue, setShowQueue] = useState(false);
 
+    const [user, setUser] = useState(null);
+
+    const login = (userData) => {
+      setUser(userData);
+    };
+    
+    const logout = () => {
+      setUser(null);
+    };
+
+
     const play = ()=>{
         audioRef.current.play();
         setPlayStatus(true);
@@ -258,6 +269,9 @@ const startSleepCountdown = (endTime) => {
         sleepRemaining,
         searchQuery,
         setSearchQuery,
+        user,
+        login,
+        logout,
 
     }
     return (

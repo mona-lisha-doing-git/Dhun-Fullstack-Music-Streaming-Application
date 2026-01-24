@@ -1,8 +1,12 @@
 import React from 'react'
 import { assets } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
+import { useContext } from "react";
+import { PlayerContext } from "../context/PlayerContext";
 
 const Navbar = () => {
+
+    const { user, logout } = useContext(PlayerContext);
 
     const navigate = useNavigate()
     return(
@@ -15,7 +19,22 @@ const Navbar = () => {
         </div>
         <div className='flex items-center gap-4'>
             <p className='bg-sky-400 text-sky-950 text-[15px] px-4 py-1 rounded-2xl hidden md:block cursor-pointer hover:bg-sky-600'>Explore Sleep Help Music</p>
-            <p className='bg-sky-600 py-1 px-3 rounded-2xl text-[15px] cursor-pointer text-sky-100 hover:bg-sky-800'>Sign in</p>
+            {user ? (
+                  <p
+                    onClick={logout}
+                    className='bg-sky-600 py-1 px-3 rounded-2xl text-[15px] cursor-pointer text-sky-100 hover:bg-sky-800'
+                  >
+                    Logout
+                  </p>
+                ) : (
+                  <p
+                    onClick={() => navigate("/signin")}
+                    className='bg-sky-600 py-1 px-3 rounded-2xl text-[15px] cursor-pointer text-sky-100 hover:bg-sky-800'
+                  >
+                    Sign in
+                  </p>
+                )}
+
             <p className='bg-purple-400 text-black w-7 h-7 rounded-full flex items-center justify-center cursor-pointer hover:bg-purple-300'>MK</p>
 
         </div>

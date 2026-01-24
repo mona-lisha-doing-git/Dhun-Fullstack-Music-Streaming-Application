@@ -5,6 +5,9 @@ import DisplayAlbum from './DisplayAlbum'
 import { PlayerContext } from '../context/PlayerContext'
 import AllAlbums from "./AllAlbums";
 import AllSongs from "./AllSongs";
+import SignIn from "./auth/SignIn";
+import SignUp from "./auth/SignUp";
+import ForgotPassword from "./auth/ForgotPassword";
 
 const Display = () => {
 
@@ -47,6 +50,10 @@ const bgColor =
       ) : null
     }
   />
+  <Route path="/signin" element={<SignIn />} />
+  <Route path="/signup" element={<SignUp />} />
+  <Route path="/forgot-password" element={<ForgotPassword />} />
+
 </Routes>
 
         : null

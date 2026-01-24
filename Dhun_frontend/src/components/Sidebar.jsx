@@ -6,6 +6,8 @@ import { PlayerContext } from '../context/PlayerContext'
 
 const Sidebar = () => {
   const { setSearchQuery } = useContext(PlayerContext);
+  const { user } = useContext(PlayerContext);
+
 
   const navigate = useNavigate();
     return(
@@ -53,7 +55,19 @@ const Sidebar = () => {
         <div className='p-4 bg-[#242424] m-2 rounded font-semibold m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4'>
           <h1>Create your first playlist</h1>
           <p className='font-light'>It is easy we'll help you</p>
-          <button className='px-4 py-1.5 bg-sky-400 text-[15px] text-sky-950 rounded-full mt-4 cursor-pointer hover:bg-sky-600'>Create Playlist</button>
+          {!user ? (
+              <button className='px-4 py-1.5 bg-sky-400 text-[15px] text-sky-950 rounded-full mt-4 cursor-not-allowed opacity-60'>
+                Create Playlist
+              </button>
+            ) : (
+              <button
+                onClick={() => navigate("/create-album")}
+                className='px-4 py-1.5 bg-sky-400 text-[15px] text-sky-950 rounded-full mt-4 cursor-pointer hover:bg-sky-600'
+              >
+                Create Playlist
+              </button>
+            )}
+
 
         </div>
         {/* <div className='p-4 bg-[#242424] m-2 rounded font-semibold m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-4'>
